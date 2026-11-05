@@ -1,0 +1,1096 @@
+# Review account, blocklist, exclusions, and dry-run before deletion.
+# REQUIRED: run with --feature-flag filter-groups for exact IAM attachment pairs.
+bypass-alias-check-accounts:
+  - '741002436844'
+regions:
+  - eu-central-1
+  - global
+blocklist:
+  - '000000000000'
+accounts:
+  '741002436844':
+    filters:
+      AppConfigDeploymentStrategy:
+        - property: ID
+          type: exact
+          value: AppConfig.AllAtOnce
+        - property: ID
+          type: exact
+          value: AppConfig.Canary10Percent20Minutes
+        - property: ID
+          type: exact
+          value: AppConfig.Linear20PercentEvery6Minutes
+        - property: ID
+          type: exact
+          value: AppConfig.Linear50PercentEvery30Seconds
+      AthenaDataCatalog:
+        - property: Name
+          type: exact
+          value: AwsDataCatalog
+      AthenaWorkGroup:
+        - property: ARN
+          type: exact
+          value: arn:aws:athena:eu-central-1:741002436844:workgroup/primary
+      BedrockInferenceProfile:
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.amazon.nova-2-lite-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.anthropic.claude-3-haiku-20240307-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.anthropic.claude-3-sonnet-20240229-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.anthropic.claude-haiku-4-5-20251001-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.anthropic.claude-haiku-5-5
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.anthropic.claude-opus-4-5-20251101-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.anthropic.claude-opus-4-6-v1
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.anthropic.claude-opus-4-7
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.anthropic.claude-opus-4-8
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.anthropic.claude-opus-5
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.anthropic.claude-opus-5-5
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.anthropic.claude-sonnet-4-5-20250929-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.anthropic.claude-sonnet-4-6
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.anthropic.claude-sonnet-5
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.anthropic.claude-sonnet-5-5
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.cohere.embed-v4:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.meta.llama3-2-1b-instruct-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.meta.llama3-2-3b-instruct-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.mistral.pixtral-large-2502-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.amazon.nova-lite-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.amazon.nova-micro-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.amazon.nova-pro-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/eu.twelvelabs.pegasus-1-2-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.amazon.nova-2-lite-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.anthropic.claude-opus-4-5-20251101-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.twelvelabs.pegasus-1-2-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.anthropic.claude-fable-5
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.anthropic.claude-fable-5-1
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.anthropic.claude-haiku-4-5-20251001-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.anthropic.claude-haiku-5-5
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.anthropic.claude-opus-4-6-v1
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.anthropic.claude-opus-4-7
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.anthropic.claude-opus-4-8
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.anthropic.claude-opus-5
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.anthropic.claude-opus-5-5
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.anthropic.claude-sonnet-4-6
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.anthropic.claude-sonnet-5
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.anthropic.claude-sonnet-5-5
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.anthropic.claude-sonnet-4-5-20250929-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.cohere.embed-v4:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.moonshotai.kimi-k3
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.openai.gpt-5.4
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.openai.gpt-5.5
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.openai.gpt-5.6-luna
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.openai.gpt-5.6-sol
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.openai.gpt-5.6-terra
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.openai.gpt-6-astra
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.openai.gpt-6-luna
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.openai.gpt-6-sol
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.openai.gpt-6.1-sol
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.openai.gpt-6.1-terra
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.twelvelabs.pegasus-1-5-v1:0
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.zai.glm-5.3
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.xai.grok-4.6
+        - property: ARN
+          type: exact
+          value: arn:aws:bedrock:eu-central-1:741002436844:inference-profile/global.xai.grok-4.7
+      CodeDeployDeploymentConfig:
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.AllAtOnce
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.ECSAllAtOnce
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.ECSCanary10Percent15Minutes
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.ECSCanary10Percent5Minutes
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.ECSLinear10PercentEvery1Minutes
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.ECSLinear10PercentEvery3Minutes
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.HalfAtATime
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.LambdaAllAtOnce
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.LambdaCanary10Percent10Minutes
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.LambdaCanary10Percent15Minutes
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.LambdaCanary10Percent30Minutes
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.LambdaCanary10Percent5Minutes
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.LambdaLinear10PercentEvery10Minutes
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.LambdaLinear10PercentEvery1Minute
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.LambdaLinear10PercentEvery2Minutes
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.LambdaLinear10PercentEvery3Minutes
+        - property: Name
+          type: exact
+          value: CodeDeployDefault.OneAtATime
+      DAXParameterGroup:
+        - property: Name
+          type: exact
+          value: default.dax1.0
+      EC2DHCPOption:
+        - type: exact
+          value: dopt-03f414c43e67e8c8a
+        - type: exact
+          value: dopt-8160cbeb
+      EC2DefaultSecurityGroupRule:
+        - type: exact
+          value: sgr-0b1c9723a660b09e4
+        - type: exact
+          value: sgr-0f3078e9a6f414273
+      EC2InternetGateway:
+        - type: exact
+          value: igw-00b3ff56f2138f58b
+        - type: exact
+          value: igw-0677c222939e3ab29
+        - type: exact
+          value: igw-086e3a05f85b21a09
+      EC2InternetGatewayAttachment:
+        - type: exact
+          value: igw-00b3ff56f2138f58b -> vpc-0c4baf888bdfb9aa7
+        - type: exact
+          value: igw-0677c222939e3ab29 -> vpc-0c36932e5fa15bd9e
+        - type: exact
+          value: igw-086e3a05f85b21a09 -> vpc-0864e0dfb8e801139
+      EC2NetworkACL:
+        - property: ID
+          type: exact
+          value: acl-0038a0718f633c800
+        - property: ID
+          type: exact
+          value: acl-0231d2a6c912ccede
+        - property: ID
+          type: exact
+          value: acl-065e7976185057e7f
+        - property: ID
+          type: exact
+          value: acl-070d900509baf2523
+        - property: ID
+          type: exact
+          value: acl-0946fff9a1ac82dd2
+        - property: ID
+          type: exact
+          value: acl-0d27d8be6516218b3
+        - property: ID
+          type: exact
+          value: acl-0d328c91a54a5fdae
+      EC2RouteTable:
+        - type: exact
+          value: rtb-035bafc622bc7bb76
+        - type: exact
+          value: rtb-06369a0037435561b
+        - type: exact
+          value: rtb-06c8d6f69f7fe42da
+        - type: exact
+          value: rtb-079503edf8bce453f
+        - type: exact
+          value: rtb-07b87da161e318113
+        - type: exact
+          value: rtb-0893c744c2492ed02
+        - type: exact
+          value: rtb-0bc83825e468a73d2
+        - type: exact
+          value: rtb-0c5443c0e8d07f32c
+        - type: exact
+          value: rtb-0d2b4d16f0eec4c42
+        - type: exact
+          value: rtb-0eff443e897e0e8aa
+        - type: exact
+          value: rtb-0f90c287a55149976
+      EC2SecurityGroup:
+        - property: ID
+          type: exact
+          value: sg-08931e87f372ab158
+      EC2Subnet:
+        - type: exact
+          value: subnet-00d9d17fb7db041c9
+        - type: exact
+          value: subnet-010c8d2ff0547272e
+        - type: exact
+          value: subnet-01d739c4af470bec9
+        - type: exact
+          value: subnet-024520bf3a9fd2d6e
+        - type: exact
+          value: subnet-028a5d41500a0e97e
+        - type: exact
+          value: subnet-034f0fab9063384d7
+        - type: exact
+          value: subnet-043e439a69014e275
+        - type: exact
+          value: subnet-056f5757f3a82dcd5
+        - type: exact
+          value: subnet-06f695f818687afd1
+        - type: exact
+          value: subnet-07f1bd88e2d42e721
+        - type: exact
+          value: subnet-085901cb0c6dff0bb
+        - type: exact
+          value: subnet-0866868ef55e84097
+        - type: exact
+          value: subnet-08ab945940c5f8b5e
+        - type: exact
+          value: subnet-09ef6078c2446d2ce
+        - type: exact
+          value: subnet-0c045220862518994
+        - type: exact
+          value: subnet-0ccab30a0d0aeb213
+        - type: exact
+          value: subnet-0cde9dcf62f609671
+        - type: exact
+          value: subnet-0dc67a82163d862a7
+        - type: exact
+          value: subnet-0dd346b24f6e87b80
+        - type: exact
+          value: subnet-0e687c0a617501471
+        - type: exact
+          value: subnet-0f728d3bbbe084aa1
+      EC2VPC:
+        - property: ID
+          type: exact
+          value: vpc-0864e0dfb8e801139
+        - property: ID
+          type: exact
+          value: vpc-0c36932e5fa15bd9e
+        - property: ID
+          type: exact
+          value: vpc-0c4baf888bdfb9aa7
+      ECSCapacityProvider:
+        - property: ARN
+          type: exact
+          value: arn:aws:ecs:eu-central-1:741002436844:capacity-provider/FARGATE
+        - property: ARN
+          type: exact
+          value: arn:aws:ecs:eu-central-1:741002436844:capacity-provider/FARGATE_SPOT
+      ElasticacheCacheParameterGroup:
+        - property: GroupName
+          type: exact
+          value: default.memcached1.4
+        - property: GroupName
+          type: exact
+          value: default.memcached1.5
+        - property: GroupName
+          type: exact
+          value: default.memcached1.6
+        - property: GroupName
+          type: exact
+          value: default.redis2.6
+        - property: GroupName
+          type: exact
+          value: default.redis2.8
+        - property: GroupName
+          type: exact
+          value: default.redis3.2
+        - property: GroupName
+          type: exact
+          value: default.redis3.2.cluster.on
+        - property: GroupName
+          type: exact
+          value: default.redis4.0
+        - property: GroupName
+          type: exact
+          value: default.redis4.0.cluster.on
+        - property: GroupName
+          type: exact
+          value: default.redis5.0
+        - property: GroupName
+          type: exact
+          value: default.redis5.0.cluster.on
+        - property: GroupName
+          type: exact
+          value: default.redis6.x
+        - property: GroupName
+          type: exact
+          value: default.redis6.x.cluster.on
+        - property: GroupName
+          type: exact
+          value: default.redis7
+        - property: GroupName
+          type: exact
+          value: default.redis7.cluster.on
+        - property: GroupName
+          type: exact
+          value: default.valkey7
+        - property: GroupName
+          type: exact
+          value: default.valkey7.cluster.on
+        - property: GroupName
+          type: exact
+          value: default.valkey8
+        - property: GroupName
+          type: exact
+          value: default.valkey8.cluster.on
+        - property: GroupName
+          type: exact
+          value: default.valkey9
+        - property: GroupName
+          type: exact
+          value: default.valkey9.cluster.on
+      ElasticacheUser:
+        - property: ID
+          type: exact
+          value: default
+        - property: ID
+          type: exact
+          value: default.iam-user
+      ElasticacheUserGroup:
+        - property: ID
+          type: exact
+          value: default.iam-user-group
+      KMSAlias:
+        - property: Name
+          type: exact
+          value: alias/aws/dynamodb
+        - property: Name
+          type: exact
+          value: alias/aws/ebs
+        - property: Name
+          type: exact
+          value: alias/aws/elasticfilesystem
+        - property: Name
+          type: exact
+          value: alias/aws/es
+        - property: Name
+          type: exact
+          value: alias/aws/glue
+        - property: Name
+          type: exact
+          value: alias/aws/kinesisvideo
+        - property: Name
+          type: exact
+          value: alias/aws/rds
+        - property: Name
+          type: exact
+          value: alias/aws/redshift
+        - property: Name
+          type: exact
+          value: alias/aws/s3
+        - property: Name
+          type: exact
+          value: alias/aws/ssm
+        - property: Name
+          type: exact
+          value: alias/aws/xray
+      MediaConvertQueue:
+        - type: exact
+          value: Default
+      MemoryDBACL:
+        - property: Name
+          type: exact
+          value: open-access
+      MemoryDBParameterGroup:
+        - property: Name
+          type: exact
+          value: default.memorydb-redis6
+        - property: Name
+          type: exact
+          value: default.memorydb-redis7
+        - property: Name
+          type: exact
+          value: default.memorydb-redis7.search
+        - property: Name
+          type: exact
+          value: default.memorydb-valkey7
+        - property: Name
+          type: exact
+          value: default.memorydb-valkey7.search
+      MemoryDBUser:
+        - property: Name
+          type: exact
+          value: default
+      OSPackage:
+        - property: PackageID
+          type: exact
+          value: G10042800
+        - property: PackageID
+          type: exact
+          value: G102158099
+        - property: PackageID
+          type: exact
+          value: G111604896
+        - property: PackageID
+          type: exact
+          value: G114544247
+        - property: PackageID
+          type: exact
+          value: G117378501
+        - property: PackageID
+          type: exact
+          value: G117970973
+        - property: PackageID
+          type: exact
+          value: G118571863
+        - property: PackageID
+          type: exact
+          value: G121046628
+        - property: PackageID
+          type: exact
+          value: G121943051
+        - property: PackageID
+          type: exact
+          value: G123404940
+        - property: PackageID
+          type: exact
+          value: G124790353
+        - property: PackageID
+          type: exact
+          value: G127912992
+        - property: PackageID
+          type: exact
+          value: G131461711
+        - property: PackageID
+          type: exact
+          value: G134237150
+        - property: PackageID
+          type: exact
+          value: G137176501
+        - property: PackageID
+          type: exact
+          value: G140010755
+        - property: PackageID
+          type: exact
+          value: G140603227
+        - property: PackageID
+          type: exact
+          value: G141204117
+        - property: PackageID
+          type: exact
+          value: G143678882
+        - property: PackageID
+          type: exact
+          value: G144575305
+        - property: PackageID
+          type: exact
+          value: G146037194
+        - property: PackageID
+          type: exact
+          value: G147422607
+        - property: PackageID
+          type: exact
+          value: G147769807
+        - property: PackageID
+          type: exact
+          value: G154093965
+        - property: PackageID
+          type: exact
+          value: G156869404
+        - property: PackageID
+          type: exact
+          value: G159808755
+        - property: PackageID
+          type: exact
+          value: G162643009
+        - property: PackageID
+          type: exact
+          value: G164862144
+        - property: PackageID
+          type: exact
+          value: G16648366
+        - property: PackageID
+          type: exact
+          value: G16714158
+        - property: PackageID
+          type: exact
+          value: G167207559
+        - property: PackageID
+          type: exact
+          value: G168669448
+        - property: PackageID
+          type: exact
+          value: G176726219
+        - property: PackageID
+          type: exact
+          value: G179501658
+        - property: PackageID
+          type: exact
+          value: G182441009
+        - property: PackageID
+          type: exact
+          value: G189839813
+        - property: PackageID
+          type: exact
+          value: G191301702
+        - property: PackageID
+          type: exact
+          value: G19489597
+        - property: PackageID
+          type: exact
+          value: G199358473
+        - property: PackageID
+          type: exact
+          value: G209493800
+        - property: PackageID
+          type: exact
+          value: G211712935
+        - property: PackageID
+          type: exact
+          value: G212472067
+        - property: PackageID
+          type: exact
+          value: G213933956
+        - property: PackageID
+          type: exact
+          value: G225801896
+        - property: PackageID
+          type: exact
+          value: G232126054
+        - property: PackageID
+          type: exact
+          value: G233213748
+        - property: PackageID
+          type: exact
+          value: G234345189
+        - property: PackageID
+          type: exact
+          value: G239819314
+        - property: PackageID
+          type: exact
+          value: G254758308
+        - property: PackageID
+          type: exact
+          value: G255056134
+        - property: PackageID
+          type: exact
+          value: G25555447
+        - property: PackageID
+          type: exact
+          value: G255846002
+        - property: PackageID
+          type: exact
+          value: G256977443
+        - property: PackageID
+          type: exact
+          value: G262451568
+        - property: PackageID
+          type: exact
+          value: G265292799
+        - property: PackageID
+          type: exact
+          value: G2923193
+        - property: PackageID
+          type: exact
+          value: G31885186
+        - property: PackageID
+          type: exact
+          value: G32675054
+        - property: PackageID
+          type: exact
+          value: G39280620
+        - property: PackageID
+          type: exact
+          value: G39346412
+        - property: PackageID
+          type: exact
+          value: G42121851
+        - property: PackageID
+          type: exact
+          value: G48187701
+        - property: PackageID
+          type: exact
+          value: G50074211
+        - property: PackageID
+          type: exact
+          value: G50675101
+        - property: PackageID
+          type: exact
+          value: G53149866
+        - property: PackageID
+          type: exact
+          value: G54517440
+        - property: PackageID
+          type: exact
+          value: G61912874
+        - property: PackageID
+          type: exact
+          value: G61978666
+        - property: PackageID
+          type: exact
+          value: G64754105
+        - property: PackageID
+          type: exact
+          value: G70819955
+        - property: PackageID
+          type: exact
+          value: G72706465
+        - property: PackageID
+          type: exact
+          value: G73307355
+        - property: PackageID
+          type: exact
+          value: G75782120
+        - property: PackageID
+          type: exact
+          value: G79525845
+        - property: PackageID
+          type: exact
+          value: G84610920
+        - property: PackageID
+          type: exact
+          value: G8955106
+        - property: PackageID
+          type: exact
+          value: G91911993
+        - property: PackageID
+          type: exact
+          value: G9252932
+        - property: PackageID
+          type: exact
+          value: G94746247
+        - property: PackageID
+          type: exact
+          value: G95338719
+        - property: PackageID
+          type: exact
+          value: G95833941
+        - property: PackageID
+          type: exact
+          value: G95939609
+        - property: PackageID
+          type: exact
+          value: G98414374
+        - property: PackageID
+          type: exact
+          value: pkg-4c50e6b54dfd92939018e4a25d402f3aaf81a29c
+        - property: PackageID
+          type: exact
+          value: pkg-55a8df1843ba91d506f14d06d8ef4144e837df5e
+        - property: PackageID
+          type: exact
+          value: pkg-5c1e601c14ea2b5e9a3a5d76e0a752d554c7190d
+        - property: PackageID
+          type: exact
+          value: pkg-88eddfb14e2b0af44393f98b4c95ac7514716491
+        - property: PackageID
+          type: exact
+          value: pkg-9801216676c562b9a096832f614a84b100d1bfd7
+        - property: PackageID
+          type: exact
+          value: pkg-a8a923320bba2c334f7f3eba75565ad270d3193e
+        - property: PackageID
+          type: exact
+          value: pkg-ae32c92cef4269aa6da7a7200eedfe7ad9fb9d8c
+        - property: PackageID
+          type: exact
+          value: pkg-bbf95c1bb9c6c6d687fd8d89e552cf4b5bb1762d
+        - property: PackageID
+          type: exact
+          value: pkg-d3b32dba449f49eb0ce66b3cf79d09bac9f3111c
+        - property: PackageID
+          type: exact
+          value: pkg-e15b96cecbc32ce63c4b0fd766b8c76d3a92f463
+      ResourceExplorer2Index:
+        - property: ARN
+          type: exact
+          value: arn:aws:resource-explorer-2:eu-central-1:741002436844:index/591e0589-b563-4ebb-aa35-32788b15c06c
+      ResourceExplorer2View:
+        - property: ARN
+          type: exact
+          value: arn:aws:resource-explorer-2:eu-central-1:741002436844:view/eu-central-1/6e6094c1-0e44-4813-9e0b-fe28e4dadc61
+      Route53ResolverFirewallDomainList:
+        - property: Arn
+          type: exact
+          value: arn:aws:route53resolver:eu-central-1:265709189544:firewall-domain-list/rslvr-fdl-1e3b46ad48844225
+        - property: Arn
+          type: exact
+          value: arn:aws:route53resolver:eu-central-1:265709189544:firewall-domain-list/rslvr-fdl-54a2c1ef5b014042
+        - property: Arn
+          type: exact
+          value: arn:aws:route53resolver:eu-central-1:265709189544:firewall-domain-list/rslvr-fdl-d81c6f509bef4d49
+        - property: Arn
+          type: exact
+          value: arn:aws:route53resolver:eu-central-1:265709189544:firewall-domain-list/rslvr-fdl-f5447e97782f4746
+      Route53ResolverRule:
+        - property: ID
+          type: exact
+          value: rslvr-autodefined-rr-internet-resolver
+      BudgetsBudget:
+        - property: Name
+          type: exact
+          value: Account spend limit
+      CloudFrontResponseHeadersPolicy:
+        - property: ID
+          type: exact
+          value: 5cc3b908-e619-4b99-88e5-2cf7f45965bd
+        - property: ID
+          type: exact
+          value: e61eb60c-9c35-4d20-a928-2b84e02af89c
+        - property: ID
+          type: exact
+          value: eaab4381-ed33-4a86-88ca-d9558dc6cd63
+        - property: ID
+          type: exact
+          value: 67f7725c-6f97-4210-82d7-5512b31e9d03
+        - property: ID
+          type: exact
+          value: 60669652-455b-4ae9-85a4-c4c02393f86c
+      IAMRole:
+        - property: Name
+          type: exact
+          value: AWSReservedSSO_Admin_78e09e23499d2c4c
+        - property: Name
+          type: exact
+          value: AWSServiceRoleForComputeOptimizer
+        - property: Name
+          type: exact
+          value: AWSServiceRoleForCostOptimizationHub
+        - property: Name
+          type: exact
+          value: AWSServiceRoleForOrganizations
+        - property: Name
+          type: exact
+          value: AWSServiceRoleForResourceExplorer
+        - property: Name
+          type: exact
+          value: AWSServiceRoleForSSO
+        - property: Name
+          type: exact
+          value: AWSServiceRoleForSupport
+        - property: Name
+          type: exact
+          value: AWSServiceRoleForTrustedAdvisor
+        - property: Name
+          type: exact
+          value: AdminOrganization
+        - property: Name
+          type: exact
+          value: AdminUserRole
+      IAMSAMLProvider:
+        - property: ARN
+          type: exact
+          value: arn:aws:iam::741002436844:saml-provider/AWSSSO_c13f33579245995f_DO_NOT_DELETE
+      Route53HostedZone:
+        - property: ID
+          type: exact
+          value: /hostedzone/Z03524611LRNKE7EYIQX0
+        - property: ID
+          type: exact
+          value: /hostedzone/Z08202891A2BRHHWXH4BR
+      IAMRolePolicyAttachment:
+        - group: baseline-roles
+          property: RoleName
+          type: exact
+          value: AWSReservedSSO_Admin_78e09e23499d2c4c
+        - group: baseline-role-1
+          property: RoleName
+          type: exact
+          value: AWSReservedSSO_Admin_78e09e23499d2c4c
+          invert: true
+        - group: baseline-role-1
+          property: PolicyArn
+          type: exact
+          value: arn:aws:iam::aws:policy/AdministratorAccess
+        - group: baseline-roles
+          property: RoleName
+          type: exact
+          value: AWSServiceRoleForComputeOptimizer
+        - group: baseline-role-2
+          property: RoleName
+          type: exact
+          value: AWSServiceRoleForComputeOptimizer
+          invert: true
+        - group: baseline-role-2
+          property: PolicyArn
+          type: exact
+          value: arn:aws:iam::aws:policy/aws-service-role/ComputeOptimizerServiceRolePolicy
+        - group: baseline-roles
+          property: RoleName
+          type: exact
+          value: AWSServiceRoleForCostOptimizationHub
+        - group: baseline-role-3
+          property: RoleName
+          type: exact
+          value: AWSServiceRoleForCostOptimizationHub
+          invert: true
+        - group: baseline-role-3
+          property: PolicyArn
+          type: exact
+          value: arn:aws:iam::aws:policy/aws-service-role/CostOptimizationHubServiceRolePolicy
+        - group: baseline-roles
+          property: RoleName
+          type: exact
+          value: AWSServiceRoleForOrganizations
+        - group: baseline-role-4
+          property: RoleName
+          type: exact
+          value: AWSServiceRoleForOrganizations
+          invert: true
+        - group: baseline-role-4
+          property: PolicyArn
+          type: exact
+          value: arn:aws:iam::aws:policy/aws-service-role/AWSOrganizationsServiceTrustPolicy
+        - group: baseline-roles
+          property: RoleName
+          type: exact
+          value: AWSServiceRoleForResourceExplorer
+        - group: baseline-role-5
+          property: RoleName
+          type: exact
+          value: AWSServiceRoleForResourceExplorer
+          invert: true
+        - group: baseline-role-5
+          property: PolicyArn
+          type: exact
+          value: arn:aws:iam::aws:policy/aws-service-role/AWSResourceExplorerServiceRolePolicy
+        - group: baseline-roles
+          property: RoleName
+          type: exact
+          value: AWSServiceRoleForSSO
+        - group: baseline-role-6
+          property: RoleName
+          type: exact
+          value: AWSServiceRoleForSSO
+          invert: true
+        - group: baseline-role-6
+          property: PolicyArn
+          type: exact
+          value: arn:aws:iam::aws:policy/aws-service-role/AWSSSOServiceRolePolicy
+        - group: baseline-roles
+          property: RoleName
+          type: exact
+          value: AWSServiceRoleForSupport
+        - group: baseline-role-7
+          property: RoleName
+          type: exact
+          value: AWSServiceRoleForSupport
+          invert: true
+        - group: baseline-role-7
+          property: PolicyArn
+          type: exact
+          value: arn:aws:iam::aws:policy/aws-service-role/AWSSupportServiceRolePolicy
+        - group: baseline-roles
+          property: RoleName
+          type: exact
+          value: AWSServiceRoleForTrustedAdvisor
+        - group: baseline-role-8
+          property: RoleName
+          type: exact
+          value: AWSServiceRoleForTrustedAdvisor
+          invert: true
+        - group: baseline-role-8
+          property: PolicyArn
+          type: exact
+          value: arn:aws:iam::aws:policy/aws-service-role/AWSTrustedAdvisorServiceRolePolicy
+        - group: baseline-roles
+          property: RoleName
+          type: exact
+          value: AdminOrganization
+        - group: baseline-role-9
+          property: RoleName
+          type: exact
+          value: AdminOrganization
+          invert: true
+        - group: baseline-role-9
+          property: PolicyArn
+          type: exact
+          value: arn:aws:iam::aws:policy/AdministratorAccess
+        - group: baseline-roles
+          property: RoleName
+          type: exact
+          value: AdminUserRole
+        - group: baseline-role-10
+          property: RoleName
+          type: exact
+          value: AdminUserRole
+          invert: true
+        - group: baseline-role-10
+          property: PolicyArn
+          type: exact
+          value: arn:aws:iam::aws:policy/AdministratorAccess
+    resource-types:
+      excludes:
+        - AWS::Timestream::Database
+        - AWS::Timestream::ScheduledQuery
+        - AWS::Timestream::Table
+        - BedrockModelCustomizationJob
+        - Cloud9Environment
+        - CloudDirectoryDirectory
+        - CloudDirectorySchema
+        - CloudSearchDomain
+        - CodeStarProject
+        - FMSNotificationChannel
+        - FMSPolicy
+        - GlueDevEndpoint
+        - InspectorAssessmentRun
+        - InspectorAssessmentTarget
+        - InspectorAssessmentTemplate
+        - LexBot
+        - LexIntent
+        - LexModelBuildingServiceBotAlias
+        - LexSlotType
+        - OpsWorksApp
+        - OpsWorksCMBackup
+        - OpsWorksCMServer
+        - OpsWorksCMServerState
+        - OpsWorksInstance
+        - OpsWorksLayer
+        - OpsWorksUserProfile
+        - QBusinessApplication
+        - QBusinessDataSource
+        - QBusinessIndex
+        - QBusinessPlugin
+        - QBusinessRetriever
+        - QBusinessWebExperience
+        - ShieldProtection
+        - ShieldProtectionGroup
+      alternatives: []
+resource-types:
+  excludes:
+    - AWS::Timestream::Database
+    - AWS::Timestream::ScheduledQuery
+    - AWS::Timestream::Table
+    - BedrockModelCustomizationJob
+    - Cloud9Environment
+    - CloudDirectoryDirectory
+    - CloudDirectorySchema
+    - CloudSearchDomain
+    - CodeStarProject
+    - FMSNotificationChannel
+    - FMSPolicy
+    - GlueDevEndpoint
+    - InspectorAssessmentRun
+    - InspectorAssessmentTarget
+    - InspectorAssessmentTemplate
+    - LexBot
+    - LexIntent
+    - LexModelBuildingServiceBotAlias
+    - LexSlotType
+    - OpsWorksApp
+    - OpsWorksCMBackup
+    - OpsWorksCMServer
+    - OpsWorksCMServerState
+    - OpsWorksInstance
+    - OpsWorksLayer
+    - OpsWorksUserProfile
+    - QBusinessApplication
+    - QBusinessDataSource
+    - QBusinessIndex
+    - QBusinessPlugin
+    - QBusinessRetriever
+    - QBusinessWebExperience
+    - ShieldProtection
+    - ShieldProtectionGroup
+  alternatives: []

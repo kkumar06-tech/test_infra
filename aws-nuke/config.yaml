@@ -1,0 +1,12 @@
+bypass-alias-check-accounts:
+  - "741002436844"
+
+regions:
+  - eu-central-1
+  - global
+
+blocklist:
+  - "000000000000"
+
+accounts:
+  "741002436844": {}

@@ -1,0 +1,265 @@
+Resource fields in the inventory
+===============================
+
+Draft cleanup config
+--------------------
+Use --config with --cleanup-output to generate an aws-nuke cleanup config.
+Every baseline entry must have an exact identity match or a verified built-in
+protection exception. This applies to candidate AND filtered entries.
+The inventory's cleanup_protection section records counts and every exception.
+There is no generated three-type restriction. New native resource types remain
+in scope unless the original config limits them.
+The 34 known failed-listing types remain excluded because their coverage is
+unknown. Original resource-type includes/excludes are retained.
+Unexpected listing errors prevent generation and remove an old cleanup output.
+Unsupported identities also fail generation and invalidate an old cleanup config.
+The rules are verified for aws-nuke v3.68.3 only.
+Generated resource-type settings use alternatives: [], not the deprecated
+cloud-control key. Empty legacy input settings are normalized to the new key.
+IMPORTANT: Use --feature-flag filter-groups with the generated cleanup config
+when cleanup_protection.requires_filter_groups is true.
+The generated config is a draft, not deletion approval. Review the account,
+real protected-account blocklist, scope, and a dry-run before any deletion.
+The current dummy blocklist does not protect real production accounts.
+
+Inventory fields
+----------------
+The inventory keeps aws-nuke's original field names for resource information:
+- type: resource type
+- name: aws-nuke's resource identifier (could be an ID, ARN, or other value)
+- owner: scan region, or "global" (not the owning AWS account)
+- prop:...: resource properties, kept with their original keys
+
+Example:
+type: EC2VPC
+name: vpc-0123456789abcdef0
+owner: eu-central-1
+prop:tag:Name: test-network
+
+The value in "name" depends on the resource type. It is not always a friendly
+name or guaranteed unique by itself. A Name tag is a separate property.
+
+Status and reason
+-----------------
+The inventory also has a derived "status" field:
+- candidate: aws-nuke's dry run said "would remove"
+- filtered: aws-nuke filtered the resource
+Every resource keeps "status" and "reason" together. For a candidate, the
+reason is "would remove". For a filtered resource, it is the filtering
+explanation from aws-nuke.
+
+Other raw scan fields, such as "msg" and "state", are not copied because status
+contains the decision needed by the later workflow.
+
+The inventory keeps all scanned resources. Its summary uses "candidate" for the
+resources aws-nuke calls "nukeable". Baseline/filter generation must protect
+all baseline resources, including both candidate and filtered entries.
+
+The account_id is the authoritative account identifier. account_name is a
+human-readable label supplied by the workflow.
+
+Properties that commonly change without identifying the resource
+(CreatedTime, UpdatedAt, and Status) are omitted to reduce noisy inventory
+diffs. Other reported properties keep aws-nuke's original "prop:..." keys.
+
+Error report
+------------
+scan-errors.yaml contains only unexpected listing errors. If there are none,
+the converter does not create it and removes any old copy at that output path.
+Expected-error counts and listing_complete remain in the inventory.
+scan_error_count counts all listing failures; scan_errors_file is null when
+there is no unexpected-error report.
+
+ID vs. Name tag
+---------------
+An ID is assigned by AWS to identify a resource, for example:
+  prop:ID: vpc-0123456789abcdef0
+
+A Name tag is a human-readable label someone adds to a resource, for example:
+  prop:tag:Name: test-network
+
+They are different values for different purposes: the ID identifies the VPC;
+the Name tag helps people recognize it. A resource may have an ID but no Name
+tag. Some resource types may not report either property.
+
+The values can still be identical. For example, this inventory has an
+AppConfig resource where prop:ID and prop:Name contain the same value.
+Matching values do not make the fields the same thing. Also, prop:Name is a
+service property; a Name tag is specifically shown as prop:tag:Name.
+
+Why scan errors affect "complete"
+--------------------------------
+The converter sets "listing_complete" to false if aws-nuke reports any
+resource-listing error. It means aws-nuke could not confirm what resources
+exist for the affected resource type. It does not necessarily mean the scan
+stopped; the other resource types may have scanned successfully.
+
+Some errors may recur because of account permissions, service availability, or
+account setup. Other errors, such as DNS failures, timeouts, and HTTP 503
+responses, may be temporary. We must not assume every current error is
+permanent or harmless. The error file shows the actual cause reported by
+AWS/aws-nuke; a retry or account administrator may be needed to confirm it.
+
+Why a list of expected errors could help
+---------------------------------------
+If the same known errors happen on every scan, one "complete" flag does not
+tell us whether anything new went wrong. We can keep a reviewed list of
+expected errors and compare each new scan against it:
+- An error matching the reviewed list is known.
+- An error not matching the list is new and needs investigation.
+
+This makes new problems easier to spot, but it does not make a failed listing
+successful. A known error still leaves that resource type unverified. For
+example, if a service could not be listed due to a permission error, the scan
+cannot prove that the service has no resources.
+
+Keep these two questions separate
+---------------------------------
+- Error novelty: "complete: true" means no unexpected listing errors were
+  found. The current 34 failures are listed in EXPECTED_LISTING_ERRORS in the
+  converter. Each rule matches a resource type and its known error cause.
+  Different causes or new resource types still count as unexpected.
+- Scan coverage: "listing_complete: true" means every resource listing
+  succeeded. Any listing failure, even an expected one, means
+  "listing_complete: false".
+
+For example, a future report could say:
+  complete: true
+  listing_complete: false
+  expected_listing_error_count: 34
+  unexpected_listing_error_count: 0
+
+This means there were no new errors, but the scan still has known coverage
+gaps. "complete: true" does not mean every resource was found. Do not treat
+such an inventory as a full cleanup baseline unless the gaps are fixed or
+resource coverage is independently verified and explicitly approved.
+
+Problem: individual exclusions for every baseline resource
+=========================================================
+
+GOAL
+  - Individually protect EVERY resource in the baseline (currently 367).
+  - Leave resources added later eligible for cleanup.
+
+PREVIOUS GAP
+  - The old cleanup config had only 11 individual ID exclusions.
+  - It skipped other resource types entirely, leaving their extras untouched.
+
+CURRENT APPROACH
+  - Exact identity match available: add an exclusion, regardless of status.
+  - No exact identity, verified built-in protection: record an exception.
+  - Neither is available: fail generation; do not guess or skip the whole type.
+  - Current baseline: 306 exact matches + 61 built-in exceptions = 367 entries.
+  - All 26 candidates have exact matches.
+  - "Exact matches" counts resource identities, not individual YAML clauses.
+    A combined identity can require several filter clauses.
+
+CodePipelineCustomActionType example
+------------------------------------
+These entries are action types, NOT pipelines.
+
+EXAMPLE: DIFFERENT ENTRIES, SAME NAME
+
+  Field       Entry 1       Entry 2
+  ----------  ------------  ------------
+  name        AWS           AWS
+  Owner       AWS           AWS
+  Category    Approval      Build
+  Provider    Manual        CodeBuild
+  Version     1             1
+
+IDENTITY
+  Owner + Category + Provider + Version
+
+MATCHING PROBLEM
+  - aws-nuke v3.68.3 exposes the four properties, but not one combined ID.
+  - Excluding the name "AWS" matches multiple entries.
+  - Four ordinary filters match ANY property, not ALL four together.
+  - Experimental filter groups use OR within each group and AND across groups.
+    Naively grouping allowed Owners, Categories, Providers, and Versions
+    separately can match combinations that were never in the baseline.
+
+EXISTING PROTECTION
+  - The baseline has 32 entries owned by AWS or ThirdParty.
+  - aws-nuke already refuses to delete these non-Custom action types.
+  - This is built-in protection, NOT an individual baseline exclusion.
+  - Custom action types are NOT covered by that protection.
+
+CONSTRAINT
+  - Avoid modifying or maintaining our own aws-nuke.
+  - Report matching limitations explicitly.
+  - Do not hide limitations by skipping whole resource types.
+  - Do not generate broad exclusions that also protect extra resources.
+
+Built-in exceptions in the current baseline
+------------------------------------------
+  Count  Type                           Reason
+  -----  -----------------------------  ----------------------------------
+     32  CodePipelineCustomActionType    Non-Custom action types
+      4  Route53ResourceRecordSet        Zone-apex NS and SOA protection
+     25  AppStreamImage                 Public AWS images
+  -----
+     61
+
+The public image entries expose only their names, not an owner-qualified
+identity. A name-only exclusion is not treated as verified protection against
+matching another owner's image. These entries already have built-in protection.
+Each exception retains its type, name, scan region, and original filtering
+reason in inventory.yaml under cleanup_protection.builtin_protection.
+No other filtering reason is automatically accepted as an exception.
+
+IAM policy attachments: exact combined identities
+------------------------------------------------
+An attachment is identified by RoleName + PolicyArn.
+Its displayed name uses RoleName + PolicyName, which is not sufficient to
+distinguish an AWS-managed policy from a customer policy with the same name.
+
+The converter generates native filter groups expressing:
+  - The role must be one of the baseline roles.
+  - For EACH baseline role:
+      The resource belongs to a DIFFERENT role
+      OR its policy ARN is one recorded for THIS role.
+
+Example baseline:
+  RoleA -> PolicyARN1
+  RoleB -> PolicyARN2
+
+Results:
+  RoleA -> PolicyARN1   protected
+  RoleB -> PolicyARN2   protected
+  RoleA -> PolicyARN2   NOT protected by these filters
+  RoleB -> PolicyARN1   NOT protected by these filters
+  RoleC -> PolicyARN1   NOT protected by these filters
+
+This avoids the role/policy cross-product without changing aws-nuke.
+It requires aws-nuke's experimental --feature-flag filter-groups option.
+Omitting that option makes the grouped rules behave as ordinary OR filters,
+which can protect extras. Never omit it for a config that requires it.
+
+Scope and validation limits
+---------------------------
+  - Global identities use account-wide names, IDs, or ARNs.
+  - Regional ARNs carry their region.
+  - Other regional identities require one explicit region, not "all" or
+    multiple regions, because ordinary property filters cannot bind a region.
+  - Cleanup regions must match the baseline scan regions.
+  - Duplicate exact identities fail generation rather than being merged.
+  - Existing ordinary filters and original resource-type limits are retained.
+  - Account presets, global filters, existing named groups, pre-existing IAM
+    attachment filters, and Cloud Control alternatives require separate
+    verification; the converter rejects them rather than guessing.
+  - Name-based matching protects the logical name, including a replacement
+    resource created with that same name; it cannot detect that recreation.
+  - Review a fresh cleanup dry run before approving deletion.
+  - Offline checks do not prove live AWS coverage or extra-resource selection.
+
+Dry-run command (does NOT delete)
+--------------------------------
+aws-nuke run --config aws-nuke/cleanup-config.yaml --profile test_dev \
+  --no-alias-check --no-prompt --feature-flag filter-groups
+
+Matching implementation references (pinned)
+------------------------------------------
+https://github.com/ekristen/aws-nuke/tree/v3.68.3/resources
+https://github.com/ekristen/libnuke/blob/v1.3.0/pkg/filter/filter.go
+https://github.com/ekristen/libnuke/blob/v1.3.0/pkg/queue/item.go
