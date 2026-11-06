@@ -11,6 +11,6 @@ permissions:
 
 jobs:
   call-cleanup:
-    uses: kkumar06-tech/test_gh_actions/.github/workflows/aws-nuke-cleanup.yml@main
+    uses: kkumar06-tech/test_gh_actions/.github/workflows/called.yml@main
     with:
       account_id: "123456789012"
