@@ -4,6 +4,13 @@ on:
   pull_request:
   workflow_dispatch:
 
+    inputs:
+      account_id:
+        required: true
+        type: string
+        default: "123456789012"
+
+
 permissions:
   contents: read
   id-token: write
@@ -13,4 +20,4 @@ jobs:
   call-cleanup:
     uses: kkumar06-tech/test_gh_actions/.github/workflows/called.yml@main
     with:
-      account_id: "123456789012"
+      account_id: ${{inputs.account_id}}
