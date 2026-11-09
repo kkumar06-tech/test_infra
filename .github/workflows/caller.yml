@@ -18,6 +18,6 @@ permissions:
 
 jobs:
   call-cleanup:
-    uses: kkumar06-tech/test_gh_actions/.github/workflows/called.yml@main
+    uses: kkumar06-tech/test_gh_actions/.github/workflows/called.yml@test_branch
     with:
       account_id: ${{inputs.account_id}}
